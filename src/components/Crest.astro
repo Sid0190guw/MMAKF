@@ -1,0 +1,92 @@
+---
+// MMAKF official crest. Used in nav, footer, and admin login.
+// Classical heraldic structure: shield outline, central kanji-style mark,
+// federation initials, founding year, laurels.
+
+interface Props {
+  size?: number;
+  variant?: 'light' | 'dark';
+  showLabel?: boolean;
+  class?: string;
+}
+const { size = 56, variant = 'light', showLabel = false, class: className = '' } = Astro.props;
+
+// Light variant: red shield, gold laurels — for dark backgrounds (default site theme)
+// Dark variant: same but inverted contrast — for over light backgrounds
+const C = {
+  shield:  variant === 'light' ? '#A80000' : '#A80000',
+  edge:    variant === 'light' ? '#BF900A' : '#BF900A',
+  inner:   variant === 'light' ? '#7a0000' : '#7a0000',
+  ink:     '#fff',
+  gold:    '#F0C040',
+  laurel:  '#BF900A',
+};
+---
+
+<div class={`crest ${className}`} style={`width:${size}px;height:${size + (showLabel ? 18 : 0)}px;display:inline-flex;flex-direction:column;align-items:center;gap:4px`}>
+  <svg width={size} height={size} viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" aria-label="MMAKF crest">
+    {/* Outer shield outline */}
+    <defs>
+      <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color={C.shield} />
+        <stop offset="100%" stop-color={C.inner} />
+      </linearGradient>
+    </defs>
+
+    {/* Laurels — symmetric left/right */}
+    <g stroke={C.laurel} stroke-width="1" fill="none" stroke-linecap="round">
+      {/* Left laurel */}
+      <path d="M 18 50 Q 12 40, 16 28" />
+      <path d="M 18 50 Q 12 60, 16 72" />
+      <path d="M 16 32 L 11 30 M 17 38 L 11 37 M 16 44 L 10 44 M 16 56 L 10 56 M 17 62 L 11 63 M 16 68 L 11 70" />
+      {/* Right laurel */}
+      <path d="M 82 50 Q 88 40, 84 28" />
+      <path d="M 82 50 Q 88 60, 84 72" />
+      <path d="M 84 32 L 89 30 M 83 38 L 89 37 M 84 44 L 90 44 M 84 56 L 90 56 M 83 62 L 89 63 M 84 68 L 89 70" />
+    </g>
+
+    {/* Shield body */}
+    <path
+      d="M 50 8 L 78 14 L 78 50 Q 78 78, 50 92 Q 22 78, 22 50 L 22 14 Z"
+      fill="url(#shieldGrad)"
+      stroke={C.edge}
+      stroke-width="1.5"
+    />
+
+    {/* Inner border */}
+    <path
+      d="M 50 14 L 73 18 L 73 50 Q 73 73, 50 85 Q 27 73, 27 50 L 27 18 Z"
+      fill="none"
+      stroke={C.edge}
+      stroke-width="0.6"
+      opacity="0.8"
+    />
+
+    {/* Central mark — stylised "M" with karate strike */}
+    <g stroke={C.ink} stroke-width="2.2" stroke-linecap="round" fill="none">
+      <path d="M 36 38 L 36 60" />
+      <path d="M 36 38 L 50 55 L 64 38" />
+      <path d="M 64 38 L 64 60" />
+    </g>
+
+    {/* Year ribbon */}
+    <text x="50" y="74" text-anchor="middle" font-family="Oswald, sans-serif" font-size="7" font-weight="600" fill={C.gold} letter-spacing="1.5">
+      EST. 1983
+    </text>
+
+    {/* Federation acronym below shield */}
+    <text x="50" y="103" text-anchor="middle" font-family="Oswald, sans-serif" font-size="10" font-weight="700" fill={C.gold} letter-spacing="2">
+      MMAKF
+    </text>
+  </svg>
+
+  {showLabel && (
+    <div style="font-family:'Oswald',sans-serif;font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:#BF900A;text-align:center">
+      Karate-Do Federation of India
+    </div>
+  )}
+</div>
+
+<style>
+  .crest { user-select: none; }
+</style>
