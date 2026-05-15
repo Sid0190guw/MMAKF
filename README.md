@@ -3,7 +3,7 @@
 The official website + admin panel for **MMAKF**.
 
 - **Established:** 1983
-- **Style:** Shito-Ryu Karate (Tiger Lee lineage)
+- **Style:** Shotokan Karate (Tiger Lee lineage)
 - **Headquarters:** Patratu, Jharkhand, India
 - **Grandmaster:** Shihan Pramod Kumar Pathak (VI Dan)
 - **Affiliation:** WKF International Pathway
